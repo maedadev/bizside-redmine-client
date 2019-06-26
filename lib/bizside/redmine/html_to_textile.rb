@@ -115,7 +115,7 @@ class Bizside::Redmine::HtmlToTextile
 
     # Put white space at the end, but only if required
     def append_white(spacing)
-      (- spacing.size).upto -1 do |i|
+      (- spacing.size).upto(-1) do |i|
         space, last = spacing[i], converted[i]
         converted << space unless space == last or NEWLINE == last
       end
@@ -123,7 +123,7 @@ class Bizside::Redmine::HtmlToTextile
 
     # Create styles, id, CSS classes, colspans, padding
     def prepare_styles(attribs, element)
-      styling = attribs['class'].to_s.split /\s+/
+      styling = attribs['class'].to_s.split(/\s+/)
       styling << '#' + attribs['id'] unless attribs['id'].blank?
       [].tap do |items|
         styles = attribs['style'].to_s.dup.strip

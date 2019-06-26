@@ -17,7 +17,7 @@ class Bizside::Redmine::Connection
       connection.get(path, params) do |request|
         request.headers['X-Redmine-API-Key'] = api_key
       end
-    rescue Faraday::ConnectionFailed => e
+    rescue Faraday::ConnectionFailed
       raise 'Redmineサーバに接続できませんでした。'
     end
   end
@@ -29,7 +29,7 @@ class Bizside::Redmine::Connection
         request.headers['Content-Type'] = 'application/json'
         request.body = params.to_json
       end
-    rescue Faraday::ConnectionFailed => e
+    rescue Faraday::ConnectionFailed
       raise 'Redmineサーバに接続できませんでした。'
     end
   end
@@ -41,7 +41,7 @@ class Bizside::Redmine::Connection
         request.headers['Content-Type'] = 'application/json'
         request.body = params.to_json
       end
-    rescue Faraday::ConnectionFailed => e
+    rescue Faraday::ConnectionFailed
       raise 'Redmineサーバに接続できませんでした。'
     end
   end
@@ -53,7 +53,7 @@ class Bizside::Redmine::Connection
         request.headers['Content-Type'] = 'application/xml'
         request.body = content
       end
-    rescue Faraday::ConnectionFailed => e
+    rescue Faraday::ConnectionFailed
       raise 'Redmineサーバに接続できませんでした。'
     end
   end
@@ -65,7 +65,7 @@ class Bizside::Redmine::Connection
         request.headers['Content-Type'] = 'application/octet-stream'
         request.body = File.binread(params[:file].path)
       end
-    rescue Faraday::ConnectionFailed => e
+    rescue Faraday::ConnectionFailed
       raise 'Redmineサーバに接続できませんでした。'
     end
   end
@@ -85,7 +85,7 @@ class Bizside::Redmine::Connection
 
   def ssl_options
     ssl_dir = File.expand_path(File.join(File.dirname(File.dirname(File.dirname(__FILE__))), 'ssl'))
-    ssl_options = {
+    {
       :ca_path => ssl_dir,
       :ca_file => File.join(ssl_dir, 'cert.pem'),
       :verify => verify_ssl,

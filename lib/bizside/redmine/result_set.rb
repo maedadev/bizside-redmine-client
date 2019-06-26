@@ -28,10 +28,6 @@ class Bizside::Redmine::ResultSet
       self.errors == target.errors
   end
 
-  def errors
-    @errors
-  end
-
   def each
     rows.each do |hash|
       yield hash

@@ -120,11 +120,11 @@ class Bizside::Redmine::ClientTest < Minitest::Test
     project_identifier = 1
     page_name = "wiki_page_1"
     content_body = "Content Boby"
-    # params = {
-    #   project_identifier: project_identifier,
-    #   page_name: page_name,
-    #   content: content_body
-    # }
+    params = {
+      project_identifier: project_identifier,
+      page_name: page_name,
+      content: content_body
+    }
     content = get_content(content_body)
     response_body = dummy_response
 
@@ -132,20 +132,19 @@ class Bizside::Redmine::ClientTest < Minitest::Test
       with(body: content).
       to_return(status: 200, body: response_body)
 
-    # result = Bizside::Redmine::ResultSet.new("", 200, response_body)
-    skip("because the response is not decoded")
-    # assert_equal @client.create_wiki_page(params), result
+    result = Bizside::Redmine::ResultSet.new(:wiki_page, 200, response_body)
+    assert_equal @client.create_wiki_page(params), result
   end
 
   def test_create_analyzed_wiki_pages
     project_identifier = 1
     page_name = "wiki_page_1"
     content_body = "Content Boby"
-    # params = {
-    #   project_identifier: project_identifier,
-    #   page_name: page_name,
-    #   content: content_body
-    # }
+    params = {
+      project_identifier: project_identifier,
+      page_name: page_name,
+      content: content_body
+    }
     content = get_content(content_body)
     response_body = dummy_response
 
@@ -153,9 +152,8 @@ class Bizside::Redmine::ClientTest < Minitest::Test
       with(body: content).
       to_return(status: 200, body: response_body)
 
-    # result = Bizside::Redmine::ResultSet.new("", 200, response_body)
-    skip("because the response is not decoded")
-    # assert_equal @client.create_analyzed_wiki_pages(params), result
+    result = Bizside::Redmine::ResultSet.new(:wiki_page, 200, response_body)
+    assert_equal @client.create_analyzed_wiki_pages(params), result
   end
 
   def test_upload_file
