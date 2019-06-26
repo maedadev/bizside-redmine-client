@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["y-matsuda"]
   spec.email         = ["matsuda@lab.acs-jp.com"]
 
-  spec.summary       = %q{redmine client for bizside system}
-  spec.description   = %q{redmine client for bizside system}
+  spec.summary       = %q{redmine client for bizside}
+  spec.description   = %q{operate redmine server using api request in bizside}
   spec.homepage      = "https://github.com/maedadev/bizside-redmine-client"
   spec.license       = "MIT"
 
@@ -23,9 +23,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'faraday', '~> 0.12'
-  spec.add_dependency 'activesupport'
+  spec.add_dependency 'activesupport', '>= 3.2', '< 6.0.0'
+  spec.add_dependency 'nokogiri', '~> 1.10'
 
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency 'webmock', '~> 3.0'
 end

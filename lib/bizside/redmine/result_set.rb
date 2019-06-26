@@ -41,8 +41,8 @@ class Bizside::Redmine::ResultSet
       message = "[Redmine] HTTP#{status}: エラー発生しました。"
     end
 
-    if defined?(Rails) and Rails.logger
-      Rails.logger.warn message
+    if Bizside::Redmine::Client.logger
+      Bizside::Redmine::Client.logger.warn message
     else
       puts message
     end

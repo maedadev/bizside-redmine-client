@@ -1,12 +1,22 @@
 require "bizside/redmine/client/version"
+require "active_support/all"
+require "bizside/redmine/connection"
+require "bizside/redmine/result_set"
+
+require "bizside/redmine/text_to_textile"
+require "bizside/redmine/html_to_textile"
 
 class Bizside::Redmine::Client
-
+  cattr_accessor :logger, :config, instance_accessor: false
   attr_reader :prefix
 
   def initialize(overrides = {})
     overrides = overrides.symbolize_keys
-    @prefix = overrides[:prefix] || '/'
+    if logger = overrides.delete(:logger)
+      @@logger = logger
+    end
+
+    @prefix = overrides[:prefix] || (Bizside::Redmine::Client.config ? Bizside::Redmine::Client.config[:prefix] : '/')
     @connection = Bizside::Redmine::Connection.new(overrides)
   end
 
@@ -81,13 +91,13 @@ class Bizside::Redmine::Client
   end
 
   def create_analyzed_wiki_pages(params)
-   content = "<wiki_page><text>#{params[:content]}</text></wiki_page>"
-   response = connection.post_or_put("#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml", content)
+    content = "<wiki_page><text>#{params[:content]}</text></wiki_page>"
+    response = connection.post_or_put("#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml", content)
   end
 
   def create_errors_wiki_pages(params)
-   content = "<wiki_page><text>h3. #{params[:page_name]} <notextile></notextile>&lt;pre&gt;#{params[:content]}&lt;/pre&gt;</text></wiki_page>"
-   response = connection.post_or_put("#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml", content)
+    content = "<wiki_page><text>h3. #{params[:page_name]} <notextile></notextile>&lt;pre&gt;#{params[:content]}&lt;/pre&gt;</text></wiki_page>"
+    response = connection.post_or_put("#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml", content)
   end
 
   def create_aggregated_wiki_page(params)

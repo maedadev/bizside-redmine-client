@@ -5,9 +5,11 @@ class Bizside::Redmine::Connection
   attr_reader :host, :api_key, :verify_ssl
 
   def initialize(overrides = {})
-    @host = overrides[:host] || Bizside.config.redmine.host
-    @api_key = overrides[:api_key] || Bizside.config.redmine.api_key
-    @verify_ssl = overrides.has_key?(:verify_ssl) ? overrides[:verify_ssl] : Bizside.config.redmine.verify_ssl
+    @host = overrides[:host] || (Bizside::Redmine::Client.config && Bizside::Redmine::Client.config[:host]) || 'localhost'
+    @api_key = overrides[:api_key] || (Bizside::Redmine::Client.config && Bizside::Redmine::Client.config[:api_key])
+    @verify_ssl = overrides.has_key?(:verify_ssl) ?
+      overrides[:verify_ssl] :
+      (Bizside::Redmine::Client.config && Bizside::Redmine::Client.config[:verify_ssl])
   end
 
   def get(path, params = {})
@@ -83,7 +85,6 @@ class Bizside::Redmine::Connection
 
   def ssl_options
     ssl_dir = File.expand_path(File.join(File.dirname(File.dirname(File.dirname(__FILE__))), 'ssl'))
-
     ssl_options = {
       :ca_path => ssl_dir,
       :ca_file => File.join(ssl_dir, 'cert.pem'),
