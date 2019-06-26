@@ -1,11 +1,13 @@
 class Bizside::Redmine::ResultSet
   include Enumerable
 
+  attr_reader :key
   attr_reader :status
   attr_reader :rows
   attr_reader :errors
 
   def initialize(key, status, json_string = nil)
+    @key = key
     @status = status
 
     if json_string.present?
@@ -17,6 +19,13 @@ class Bizside::Redmine::ResultSet
     end
 
     @rows ||= []
+  end
+
+  def ==(target)
+    self.key == target.key &&
+      self.status == target.status &&
+      self.rows == target.rows &&
+      self.errors == target.errors
   end
 
   def errors
