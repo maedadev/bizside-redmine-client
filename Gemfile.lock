@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bizside-redmine-client (0.1.0)
+    bizside-redmine-client (0.0.1)
       activesupport (>= 3.2, < 6.0.0)
       faraday (~> 0.12)
       nokogiri (~> 1.10)
