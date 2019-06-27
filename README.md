@@ -22,7 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'bizside/redmine/client'
+
+client = Bizside::Redmine::Client.new(host: 'your-redmine-host', api_key: 'your-redmine-account-api-key')
+projects = client.projects
+projects.each {|project| puts "ID: #{project['id']}, Name: #{project['name']}" } && nil
+```
+
+The client object also has some other methods to get Redmine data or post data to Redmine.
 
 ## Development
 
