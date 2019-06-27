@@ -25,7 +25,7 @@ Or install it yourself as:
 ```ruby
 require 'bizside/redmine/client'
 
-client = Bizside::Redmine::Client(host: 'your-redmine-host', api_key: 'your-redmine-account-api-key')
+client = Bizside::Redmine::Client.new(host: 'your-redmine-host', api_key: 'your-redmine-account-api-key')
 projects = client.projects
 projects.each {|project| puts "ID: #{project['id']}, Name: #{project['name']}" } && nil
 ```
