@@ -5,11 +5,11 @@ class Bizside::Redmine::Connection
   attr_reader :host, :api_key, :verify_ssl
 
   def initialize(overrides = {})
-    @host = overrides[:host] || (Bizside::Redmine::Client.config && Bizside::Redmine::Client.config[:host]) || 'localhost'
-    @api_key = overrides[:api_key] || (Bizside::Redmine::Client.config && Bizside::Redmine::Client.config[:api_key])
+    @host = overrides[:host] || Bizside::Redmine::Client.config[:host]
+    @api_key = overrides[:api_key] || Bizside::Redmine::Client.config[:api_key]
     @verify_ssl = overrides.has_key?(:verify_ssl) ?
       overrides[:verify_ssl] :
-      (Bizside::Redmine::Client.config && Bizside::Redmine::Client.config[:verify_ssl])
+      Bizside::Redmine::Client.config[:verify_ssl]
   end
 
   def get(path, params = {})

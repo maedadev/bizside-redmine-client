@@ -7,8 +7,25 @@ require "bizside/redmine/text_to_textile"
 require "bizside/redmine/html_to_textile"
 
 class Bizside::Redmine::Client
-  cattr_accessor :logger, :config, instance_accessor: false
+  DEFAULT_CONFIG = {
+    host: 'localhost',
+    prefix: '/',
+    api_key: '',
+    verify_ssl: false,
+  }.freeze
+
+  cattr_accessor :logger, instance_accessor: false
+  cattr_reader :config, instance_accessor: false
   attr_reader :prefix
+
+  @@config = DEFAULT_CONFIG.dup
+
+  def self.set_config(config)
+    @@config = DEFAULT_CONFIG.dup
+    DEFAULT_CONFIG.keys.each do |key|
+      @@config[key] = config[key] unless config[key].nil?
+    end
+  end
 
   def initialize(overrides = {})
     overrides = overrides.symbolize_keys
@@ -16,7 +33,7 @@ class Bizside::Redmine::Client
       @@logger = logger
     end
 
-    @prefix = overrides[:prefix] || (Bizside::Redmine::Client.config ? Bizside::Redmine::Client.config[:prefix] : '/')
+    @prefix = overrides[:prefix] || Bizside::Redmine::Client.config[:prefix]
     @connection = Bizside::Redmine::Connection.new(overrides)
   end
 
