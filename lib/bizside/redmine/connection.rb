@@ -18,7 +18,7 @@ class Bizside::Redmine::Connection
         request.headers['X-Redmine-API-Key'] = api_key
       end
     rescue Faraday::ConnectionFailed
-      raise 'Redmineサーバに接続できませんでした。'
+      raise 'Could not connect to the Redmine server.'
     end
   end
 
@@ -30,7 +30,7 @@ class Bizside::Redmine::Connection
         request.body = params.to_json
       end
     rescue Faraday::ConnectionFailed
-      raise 'Redmineサーバに接続できませんでした。'
+      raise 'Could not connect to the Redmine server.'
     end
   end
 
@@ -42,7 +42,7 @@ class Bizside::Redmine::Connection
         request.body = params.to_json
       end
     rescue Faraday::ConnectionFailed
-      raise 'Redmineサーバに接続できませんでした。'
+      raise 'Could not connect to the Redmine server.'
     end
   end
 
@@ -54,7 +54,7 @@ class Bizside::Redmine::Connection
         request.body = content
       end
     rescue Faraday::ConnectionFailed
-      raise 'Redmineサーバに接続できませんでした。'
+      raise 'Could not connect to the Redmine server.'
     end
   end
 
@@ -66,7 +66,7 @@ class Bizside::Redmine::Connection
         request.body = File.binread(params[:file].path)
       end
     rescue Faraday::ConnectionFailed
-      raise 'Redmineサーバに接続できませんでした。'
+      raise 'Could not connect to the Redmine server.'
     end
   end
 

@@ -41,9 +41,9 @@ class Bizside::Redmine::ResultSet
     when 200
       return
     when 401
-      message = "[Redmine] HTTP#{status}: API認証に失敗しました。"
+      message = "[Redmine] HTTP#{status}: API authentication failed."
     else
-      message = "[Redmine] HTTP#{status}: エラー発生しました。"
+      message = "[Redmine] HTTP#{status}: An error has occurred."
     end
 
     if Bizside::Redmine::Client.logger
