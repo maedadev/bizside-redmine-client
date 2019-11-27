@@ -105,19 +105,19 @@ class Bizside::Redmine::Client
     path = "#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml"
     content = "<wiki_page><text>#{params[:content]}</text></wiki_page>"
     response = connection.post_or_put(path, content)
-    decode(:wiki_page, response)
+    Bizside::Redmine::ResultSet.new(:wiki_page, response.status)
   end
 
   def create_analyzed_wiki_pages(params)
     content = "<wiki_page><text>#{params[:content]}</text></wiki_page>"
     response = connection.post_or_put("#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml", content)
-    decode(:wiki_page, response)
+    Bizside::Redmine::ResultSet.new(:wiki_page, response.status)
   end
 
   def create_errors_wiki_pages(params)
     content = "<wiki_page><text>h3. #{params[:page_name]} <notextile></notextile>&lt;pre&gt;#{params[:content]}&lt;/pre&gt;</text></wiki_page>"
     response = connection.post_or_put("#{prefix}/projects/#{params[:project_identifier]}/wiki/#{params[:page_name]}.xml", content)
-    decode(:wiki_page, response)
+    Bizside::Redmine::ResultSet.new(:wiki_page, response.status)
   end
 
   def create_aggregated_wiki_page(params)
