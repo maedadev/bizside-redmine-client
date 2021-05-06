@@ -38,7 +38,7 @@ class Bizside::Redmine::ResultSet
 
   def warn(status)
     case status
-    when 200
+    when 200, 201
       return
     when 401
       message = "[Redmine] HTTP#{status}: API authentication failed."
