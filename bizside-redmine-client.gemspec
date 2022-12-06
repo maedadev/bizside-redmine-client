@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'faraday', '>= 0.12', '< 2.0.0'
-  spec.add_dependency 'activesupport', '>= 4.2.11', '< 6.0.0'
+  spec.add_dependency 'activesupport', '>= 4.2.11', '< 7.0.0'
   spec.add_dependency 'nokogiri', '~> 1.10'
 
   spec.add_development_dependency "bundler", "~> 2.0"
