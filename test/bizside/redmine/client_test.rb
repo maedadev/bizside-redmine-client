@@ -23,13 +23,21 @@ class Bizside::Redmine::ClientTest < Minitest::Test
     stub_request(:get, "#{request_host}/projects.json").
       with(query: {
         include: 'trackers,issue_categories',
-        page: 1,
-        per: 100
+        limit: '100',
+        offset: '0'
       }).
       to_return(status: 200, body: response_body)
 
-    result = Bizside::Redmine::ResultSet.new(:projects, 200, response_body)
-    assert_equal @client.projects, result
+    result = @client.projects(page: 1, per: 100)
+    expected = Bizside::Redmine::ResultSet.new(:projects, 200, response_body)
+    assert_equal expected, result
+
+    assert_requested :get, "#{request_host}/projects.json",
+      query: hash_including(
+        limit: '100',
+        offset: '0'
+      ),
+      times: 1
   end
 
   def test_trackers
