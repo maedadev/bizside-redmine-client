@@ -40,11 +40,11 @@ class Bizside::Redmine::Client
   def projects(params = {})
     params = params.symbolize_keys
 
-    api_params = {
-      include: 'trackers,issue_categories',
-      page: params[:page] || 1,
-      per: params[:per] || 100
-    }
+    include_value = 'trackers,issue_categories'
+    per = (params[:per] || 100).to_i
+    page = (params[:page] || 1).to_i
+    offset = (page - 1) * per
+    api_params = { include: include_value, limit: per, offset: offset }
 
     response = connection.get("#{prefix}/projects.json", api_params)
     decode(:projects, response)
