@@ -84,11 +84,8 @@ class Bizside::Redmine::Connection
   end
 
   def ssl_options
-    ssl_dir = File.expand_path(File.join(File.dirname(File.dirname(File.dirname(__FILE__))), 'ssl'))
     {
-      :ca_path => ssl_dir,
-      :ca_file => File.join(ssl_dir, 'cert.pem'),
-      :verify => verify_ssl,
+      verify: verify_ssl
     }
   end
 
